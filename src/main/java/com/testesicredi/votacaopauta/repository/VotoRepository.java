@@ -19,6 +19,8 @@ package com.testesicredi.votacaopauta.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
+import com.testesicredi.votacaopauta.model.ResultadoVotacao;
 import com.testesicredi.votacaopauta.model.Voto;
 
 
@@ -28,4 +30,7 @@ public interface VotoRepository extends JpaRepository<Voto, Long> {
 	@Query(value = "Select count(*) from VOTO pt where idPauta = ?1 and cpf = ?2")
 	Long votouNestaPauta(Long id, String cpf);
   
+	@Query(value = "Select sum(case when conteudo = 'SIM' then 1 else 0 end) as SIM, sum(case when conteudo = 'SIM' then 0 else 1 end) as NAO from VOTO where idPauta= ?1")
+	ResultadoVotacao resultadoVotacao(Long id);
+	
 }

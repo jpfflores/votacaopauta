@@ -21,19 +21,23 @@ import java.time.LocalDateTime;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+//import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.testesicredi.votacaopauta.model.Pauta;
 
 @Repository
-@RepositoryRestResource(collectionResourceRel = "pauta", path = "pautas")
+//@RepositoryRestResource(collectionResourceRel = "pauta", path = "pautas")
 public interface PautaRepository extends JpaRepository<Pauta, Long> {
 
 	@Modifying
+	@Transactional
     @Query(value = "Update PAUTA pt set pt.dataEncerramento = ?1 WHERE pt.id = ?2")
 	void ativaPauta(LocalDateTime encerramento, Long id);
 	
     @Query(value = "Select count(*) from PAUTA pt where id = ?1 and pt.dataEncerramento is not null and pt.dataEncerramento > current_timestamp")
 	Long prontaParaSerVotada(Long id);
   
+    
 }

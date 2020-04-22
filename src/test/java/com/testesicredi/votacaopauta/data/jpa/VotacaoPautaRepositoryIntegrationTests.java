@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.testesicredi.votacaopauta.data.jpa.service;
+package com.testesicredi.votacaopauta.data.jpa;
 
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-//import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,12 +29,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.testesicredi.votacaopauta.VotacaoPautaApplication;
 import com.testesicredi.votacaopauta.model.Pauta;
+import com.testesicredi.votacaopauta.model.Voto;
 import com.testesicredi.votacaopauta.repository.PautaRepository;
 import com.testesicredi.votacaopauta.repository.VotoRepository;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
@@ -48,51 +48,57 @@ import javax.sql.DataSource;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @RunWith(SpringJUnit4ClassRunner.class)
-//@SpringApplicationConfiguration(classes = VotacaoPautaApplication.class)
-public class PautaRepositoryIntegrationTests {
-
-    @Autowired private DataSource dataSource;
-    @Autowired private JdbcTemplate jdbcTemplate;
-    @Autowired private EntityManager entityManager;
+public class VotacaoPautaRepositoryIntegrationTests {
 
 	@Autowired private PautaRepository pautaRepository;
 	@Autowired private VotoRepository votoRepository;
 
 
-/*
+    @Test
+    public void testCriarPauta() {
+
+        Pauta pauta = new Pauta();
+        pauta.setObjetivo("Assunto1");
+        pautaRepository.save(pauta);
+        assertTrue(pautaRepository.existsById(pauta.getId()));
+    }	
     @Test
     public void testBuscarPauta() {
 
-        //Pauta pauta = new Pauta("admin", "admin", "admin@gmail.com");
-        //employeeRepository.save(employee);
-        //Pauta pauta2 = new Pauta("admin", "admin", "admin@gmail.com");
-        //assertNotNull(pauta);
-        //assertEquals(employee2.getFirstName(), employee.getFirstName());
-       // assertEquals(employee2.getLastName(), employee.getLastName());
+        Pauta pauta = new Pauta();
+        pauta.setObjetivo("Assunto1");
+        pautaRepository.save(pauta);
+        Pauta pauta2 = pautaRepository.findById(pauta.getId()).get();
+        assertNotNull(pauta2);
+        assertEquals(pauta.getId(),pauta2.getId());
+        assertEquals(pauta.getObjetivo(), pauta2.getObjetivo());
     }
 
     @Test
-    public void testDeleteEmployee() {
-        Employee employee = new Employee("admin", "admin", "admin@gmail.com");
-        employeeRepository.save(employee);
-        employeeRepository.delete(employee);
+    public void testVotar() {
+
+        Voto voto = new Voto();
+        voto.setCpf("99999999900");
+        voto.setConteudo("SIM");
+        voto.setIdPauta(new Long(1));
+        votoRepository.save(voto);
+        
+        assertTrue(votoRepository.existsById(voto.getId()));
+    }	
+    @Test
+    public void testBuscarVoto() {
+
+        Voto voto = new Voto();
+        voto.setCpf("99999999900");
+        voto.setConteudo("SIM");
+        voto.setIdPauta(new Long(1));
+        votoRepository.save(voto);
+        Voto voto2 = votoRepository.findById(voto.getId()).get();
+        assertNotNull(voto2);
+        assertEquals(voto.getId(),voto2.getId());
+        assertEquals(voto.getConteudo(), voto2.getConteudo());
     }
 
-    @Test
-    public void findAllEmployees() {
-        Employee employee = new Employee("admin", "admin", "admin@gmail.com");
-        employeeRepository.save(employee);
-        assertNotNull(employeeRepository.findAll());
-    }
-
-    @Test
-    public void deletByEmployeeIdTest() {
-        Employee employee = new Employee("admin", "admin", "admin@gmail.com");
-        Employee emp = employeeRepository.save(employee);
-        employeeRepository.deleteById(emp.getId());
-    }
-    
-    */
 }
 
 

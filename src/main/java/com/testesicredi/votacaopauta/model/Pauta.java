@@ -50,5 +50,7 @@ public class Pauta implements Serializable {
 	@Column(name = "DATA_ENCERRAMENTO", nullable = true)
 	private LocalDateTime dataEncerramento;
 	
+	
+	public void setObjetivo(String objetivo ) { this.objetivo = objetivo; }
 
 }

@@ -20,21 +20,5 @@ import com.testesicredi.votacaopauta.repository.PautaRepository;
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 public class PautaService {
 
-    //private PautaRepository pautaRepository;
-/*
-    @Autowired
-    public PautaService(PautaRepository pautaRepository) {
-        this.pautaRepository = pautaRepository;
-
-        public Pauta criarPauta(Pauta pauta) {
-            try {
-                return pautaRepository.saveAndFlush(pauta);
-            } catch (DataAccessException error) {
-                saveError(transaction, error);
-                return null;
-            }
-        }
-        
-    }
-  */  
+ 
 }
