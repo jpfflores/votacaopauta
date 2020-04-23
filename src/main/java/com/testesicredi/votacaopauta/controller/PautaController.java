@@ -7,6 +7,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,12 +27,13 @@ public class PautaController {
 		private PautaRepository pautaRepository;
 		private VotoRepository votoRepository;
 		
-		@RequestMapping(method = RequestMethod.POST, value = "/gerar-pauta")
+		//@RequestMapping(method = RequestMethod.POST, path = "/gerar-pauta")
+		@PostMapping("/gerar-pauta")
 		public Pauta gerarPauta(@Validated @RequestBody Pauta pauta) {
 			return this.pautaRepository.save(pauta);
 		}
 
-		@RequestMapping(method = RequestMethod.POST, value = "/ativar-pauta")
+		@RequestMapping(method = RequestMethod.POST, path = "/ativar-pauta")
 		public String ativarPauta(@RequestParam Long id, @RequestParam Long tempo) {
 			try {
 				LocalDateTime dataEncerramento = LocalDateTime.now(); //now

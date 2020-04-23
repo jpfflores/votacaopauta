@@ -29,7 +29,7 @@ public class VotoController {
 			if( this.pauta.prontaParaSerVotada(idPauta) == 1){
 				if(this.voto.votouNestaPauta(idPauta, cpf) == 0  ) {
 					this.voto.save(new Voto(idPauta, cpf, conteudo));
-					return "Status Ok";
+					return "Voto computado";
 				} else {
 					return "Associado ja votou";
 				}
